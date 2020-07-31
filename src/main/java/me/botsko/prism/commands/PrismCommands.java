@@ -58,7 +58,8 @@ public class PrismCommands extends Executor {
             public void handle(CallInfo call) {
                 prism.reloadConfig();
                 prism.loadConfig();
-                call.getSender().sendMessage(Prism.messenger.playerHeaderMsg("Configuration reloaded successfully."));
+                Prism.messenger.sendMessage(call.getSender(),
+                        Prism.messenger.playerHeaderMsg("Configuration reloaded successfully."));
             }
 
             @Override
