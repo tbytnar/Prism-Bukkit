@@ -3,7 +3,6 @@ package me.botsko.prism.commands;
 import me.botsko.prism.Il8n;
 import me.botsko.prism.Prism;
 import me.botsko.prism.commandlibs.CallInfo;
-import me.botsko.prism.commandlibs.SubHandler;
 import me.botsko.prism.settings.Settings;
 import me.botsko.prism.utils.InventoryUtils;
 import me.botsko.prism.utils.ItemUtils;
@@ -25,7 +24,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
 
-public class WandCommand implements SubHandler {
+public class WandCommand extends AbstractCommand {
 
     private final Prism plugin;
 
@@ -246,11 +245,11 @@ public class WandCommand implements SubHandler {
         }
     }
 
-    private void sendWandStatus(final CommandSender sender,
-                                @PropertyKey(resourceBundle = "languages.message") String wandStatusMessageKey,
-                                final boolean status,
-                                final String wandType,
-                                final String parameters) {
+    static void sendWandStatus(final CommandSender sender,
+                               @PropertyKey(resourceBundle = "languages.message") String wandStatusMessageKey,
+                               final boolean status,
+                               final String wandType,
+                               final String parameters) {
         final TextComponent state;
         if (status) {
             state = Il8n.getMessage("enabled").color(NamedTextColor.GREEN);
@@ -272,17 +271,6 @@ public class WandCommand implements SubHandler {
         }
         Prism.messenger.sendMessage(sender, out);
 
-    }
-
-    private boolean checkNoPermissions(CommandSender sender, String... permissions) {
-        for (String perm : permissions) {
-            if (!sender.hasPermission(perm)) {
-                Prism.messenger.sendMessage(sender,
-                        Prism.messenger.playerError(Il8n.getMessage("no-permission")));
-                return true;
-            }
-        }
-        return false;
     }
 
     @Override

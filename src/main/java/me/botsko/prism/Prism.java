@@ -764,7 +764,7 @@ public class Prism extends JavaPlugin {
      * @param radius int
      * @param msg    String
      */
-    public void notifyNearby(Player player, int radius, String msg) {
+    public void notifyNearby(Player player, int radius, TextComponent msg) {
         if (!getConfig().getBoolean("prism.appliers.notify-nearby.enabled")) {
             return;
         }

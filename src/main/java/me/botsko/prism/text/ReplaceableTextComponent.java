@@ -3,6 +3,7 @@ package me.botsko.prism.text;
 
 import me.botsko.prism.Il8n;
 import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.format.Style;
 import org.jetbrains.annotations.PropertyKey;
 
 import java.util.regex.Pattern;
@@ -24,19 +25,29 @@ public class ReplaceableTextComponent {
         return new ReplaceableTextComponent(Il8n.getMessage(key));
     }
 
-    public ReplaceableTextComponent replace(String key, String content) {
+    public ReplaceableTextComponent replace(String key, String content, Style withStyle) {
         this.component = component.replace(Pattern.compile(key),
-                builder -> TextComponent.builder().content(content));
+                builder -> TextComponent.builder().content(content).style(withStyle));
+        return this;
+    }
+
+    public ReplaceableTextComponent replace(String key, String content) {
+        replace(key, content, Style.empty());
+        return this;
+    }
+
+    public ReplaceableTextComponent replace(String key, Object content, Style withStyle) {
+        replace(key, String.valueOf(content), withStyle);
         return this;
     }
 
     public ReplaceableTextComponent replace(String key, Object content) {
-        replace(key,String.valueOf(content));
+        replace(key, String.valueOf(content), Style.empty());
         return this;
     }
 
     public ReplaceableTextComponent replaceFirst(String key, Object content) {
-        replaceFirst(key,String.valueOf(content));
+        replaceFirst(key, String.valueOf(content));
         return this;
     }
 
